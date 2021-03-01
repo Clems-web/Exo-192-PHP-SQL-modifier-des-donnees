@@ -9,10 +9,33 @@
  */
 
 // TODO Votre code ici.
+
 try {
-    ...
+    $server = "localhost";
+    $db = "exo_192";
+    $user = "root";
+    $password = "";
+
+    $pdo = new PDO("mysql:host=$server;dbname=$db", $user, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    /*$sql = "
+    INSERT INTO exo_192.user(nom, prenom, rue, numero, code_postal, ville, pays, mail)
+    VALUES ('Jeff', 'Tuche', 'Rue des frites', '15', 59840, 'Fourmies', 'France', 'Tuche.Jeff@gmail.com')
+";*/
+    $nom = "Patrick";
+    $id = 4;
+
+    $sql = $pdo->prepare("UPDATE user SET nom = :nom WHERE id = :id");
+    $sql->bindParam(':nom', $nom);
+    $sql->bindParam(':id', $id);
+
+    $sql->execute();
+    echo "ok";
 }
-catch...
+catch (PDOException $exception) {
+    echo $exception->getMessage();
+}
 
 
 
